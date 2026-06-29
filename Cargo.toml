@@ -1,0 +1,23 @@
+[package]
+name = "rbind"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "rbind_lib"
+# Both `cdylib` (the actual `.so` artifact loaded by the host process
+# via LD_PRELOAD) and `rlib` (the Rust staticlib used by the `rbind`
+# CLI binary so it can call `rbind_lib::cli::run()`).
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "rbind"
+path = "src/cli/rbind.rs"
+
+[dependencies]
+libc = "0.2"
+clap = { version = "4", features = ["derive"] }
+toml = "1.1"
+serde = { version = "1", features = ["derive"] }
+dirs = "6"
+anyhow = "1"
